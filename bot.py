@@ -14,8 +14,8 @@ def start_message(message):
 
 @bot.message_handler(commands=['aiuto'])
 def help_message(message):
-    bot.send_message(message.chat.id, '\ciao o ciao – chieda una parola.\n
-    \parolanuova o parolanuova – ricorda una parola nuova.')
+    bot.send_message(message.chat.id, '/ciao o ciao – chieda una parola.\n
+    /parolanuova o parolanuova – ricorda una parola nuova.')
 
 
 @bot.message_handler(commands=['ciao'])
