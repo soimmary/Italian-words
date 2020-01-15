@@ -9,7 +9,7 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['inizio'])
 def start_message(message):
-    bot.send_message(message.chat.id, 'Ciao! C'è un bot che ti aiuta imparare le parole italiane!')
+    bot.send_message(message.chat.id, "Ciao! C'è un bot che ti aiuta imparare le parole italiane!")
 
 
 @bot.message_handler(commands=['aiuto'])
