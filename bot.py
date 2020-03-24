@@ -33,7 +33,7 @@ def modello_message_register_modello(message):
     user_choice = str(message.text).strip().lower()
     if user_choice in ('ital -> rus', 'rus -> ital'):
         italian.MODELLO_BY_ID[user_id] = user_choice
-        bot.register_next_step_handler(message, ciao_message_ask)
+        ciao_message_ask(message)
     else:
         bot.send_message(message.chat.id, "l'errore")
         bot.register_next_step_handler(message, modello_message)
