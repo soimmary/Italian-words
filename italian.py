@@ -1,57 +1,40 @@
 import random
 
-WORDSLIST = []
+WORDS_DICTIONARY = {}  # *ital_word*: *rus_word*
+MODELLO_BY_ID = {}
 
 
-def createBasis(filename: str = 'italian.txt'):
+def create_basis(filename: str = 'italian.txt'):
     """ создает базу слов из ткстшника
         принимает название файла
     """
     with open(filename, 'r', encoding='utf-8') as f:
         for line in f:
             ital, rus = line.split('-')
-            WORDSLIST.append((ital.strip().lower(), rus.strip().lower()))
+            WORDS_DICTIONARY[ital.strip().lower()] = rus.strip().lower()
 
 
-def askItalianWord():
+def choose_word():
     """ спрашивает случайное слово из списка всех слов
-    """
-    number = random.randint(0, len(WORDSLIST) - 1)
-    return WORDSLIST[number], number
-
-
-def answerItalianWord(answer: str, number: int):
-    """ проверяет ответ пользователя
         принимает ответ пользователя answer
-        и индекс спрашиваемого слова number
+        проверяет ответ пользователя
     """
-    if answer.strip().lower() == WORDSLIST[number][1]:
-        rightWords = ['GIUSTO!', 'BENE!', 'CORRETTAMENTE!',
-                      'ESSATO!', 'CERTO!', 'BRAVO!', 'BRAVISSIMA!']  # похвала
-        rightNumber = random.randint(0, len(rightWords) - 1)
-        return rightWords[rightNumber]
+    word = random.choice(list(WORDS_DICTIONARY.items()))
+    return word
+
+
+def check_answer(answer, word, user_id):
+    right_answer = ''
+    if MODELLO_BY_ID[user_id] == 'ital -> rus':
+        right_answer = word[1]
+    elif MODELLO_BY_ID[user_id] == 'rus -> ital':
+        right_answer = word[0]
+    if right_answer == answer:
+        approval = ('GIUSTO!', 'BENE!', 'CORRETTAMENTE!', 'ESSATO!',
+                    'CERTO!', 'BRAVO!', 'BRAVISSIMA!')
+        return random.choice(approval)
     else:
-        return 'SBAGLIATO :(\nla risposta giusta: {}'.format(WORDSLIST[number][1])
+        return f'Ti sbagli :(\nla risposta giusta: {right_answer}'
 
 
-def newWordsWithStr(wordNtranslation:str):
-    wList = wordNtranslation.split('\n')
-    for word in wList:
-        ital, rus = word.split('-')
-        WORDSLIST.append((ital.lower(), rus.lower()))
-
-
-def save():
-    info = ''
-    for words in WORDSLIST:
-        info += ' - '.join(words) + '\n'
-    with open('words.txt', 'w', encoding='utf8') as f:
-        print(info, file=f)
-
-
-def newWordsWithFile(filename:str):
-    with open(filename, 'r', encoding='utf8') as f:
-        for word in f:
-            pass
-
-createBasis()
+create_basis()
