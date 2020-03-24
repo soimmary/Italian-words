@@ -16,8 +16,8 @@ def start_message(message):
 
 @bot.message_handler(commands=['help'])
 def help_message(message):
-    bot.send_message(message.chat.id, '\ciao o ciao – damando la parola\n'
-                                      '\sonostanco o sonostanco – ')
+    bot.send_message(message.chat.id, '/ciao o ciao – damando la parola\n'
+                                      '/sonostanco o sonostanco – ')
 
 
 def modello_message(message):
@@ -40,8 +40,6 @@ def modello_message_register_modello(message):
 
 @bot.message_handler(commands=['ciao'])
 def ciao_message_ask(message, is_first_call=True):
-    if is_first_call:
-        modello_message(message)
     if str(message.text).strip().lower() not in ('sonostanco', 'sono stanco'):  # proverka na ustalost'
         user_id = message.chat.id
         word = italian.choose_word()
