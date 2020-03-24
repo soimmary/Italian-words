@@ -20,6 +20,7 @@ def help_message(message):
                                       '/sonostanco o sonostanco – ')
 
 
+@bot.message_handler(commands=['modello'])
 def modello_message(message):
     keyboard_modello = telebot.types.ReplyKeyboardMarkup(True, True)
     keyboard_modello.row('ital -> rus', 'rus -> ital')
@@ -59,7 +60,7 @@ def ciao_message_check_answer(message, word):
         user_id = message.chat.id
         my_decision = italian.check_answer(answer, word, user_id)
         bot.send_message(message.chat.id, my_decision)
-        bot.register_next_step_handler(message, ciao_message_ask, is_first_call=False)
+        ciao_message_ask(message)
     else:
         sonostanco_message(message)
 
