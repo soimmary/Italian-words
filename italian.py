@@ -4,7 +4,6 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 WORDS_DICTIONARY = {}  # *ital_word*: *rus_word*
 MODELLO_BY_ID = {}
-FORGOTTEN_WORDS = collections.Counter()
 
 
 def create_basis():
