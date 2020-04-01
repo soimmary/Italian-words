@@ -38,7 +38,6 @@ def check_answer(answer, word, user_id):
                     'CERTO!', 'BRAVO!', 'BRAVISSIMA!')
         return random.choice(approval)
     else:
-        FORGOTTEN_WORDS[right_answer] += 1  # добавила этот кусок
         return f'Ti sbagli :(\nla risposta giusta: {right_answer}'
 
 
