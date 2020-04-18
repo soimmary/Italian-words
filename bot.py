@@ -54,7 +54,7 @@ def ciao_message_check_answer(message, word, language):
     answer = message.text.strip().lower()
     if answer not in ('sonostanco', 'sono stanco'):
         user_id = message.chat.id
-        my_decision = italian.check_answer(answer, word, user_id)
+        my_decision = italian.check_answer(answer, word, language)
         bot.send_message(user_id, my_decision)
         bot.register_next_step_handler(message, ciao_message_ask, language)
     else:
