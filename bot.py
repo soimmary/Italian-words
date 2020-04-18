@@ -45,7 +45,7 @@ def ciao_message_ask(message, language):
         elif language == 'rus -> ital':
             bot.send_message(message.chat.id, word[1])
         bot.send_message(user_id, 'aspetto la tua risposta')
-        bot.register_next_step_handler(message, ciao_message_check_answer, word=word)
+        bot.register_next_step_handler(message, ciao_message_check_answer, word, language)
     else:
         sonostanco_message(message)
 
