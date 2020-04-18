@@ -48,7 +48,7 @@ def drawing_bar():
     plt.title('Le parole che dimentichi')
     plt.ylabel('Volte')
     plt.xlabel('Parole')
-    plt.savefig(r'МАШУЛЯМОЛОДЕЦ.jpg', dpi=1000, bbox_inches=0)
+    plt.savefig(r'МАШУЛЯМОЛОДЕЦ.png', dpi=1000, bbox_inches=0)
 
 
 create_basis()
