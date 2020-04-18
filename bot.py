@@ -63,6 +63,13 @@ def ciao_message_check_answer(message, word, language):
 
 def sonostanco_message(message):
     bot.send_message(message.chat.id, 'hai lavorato bene!')
+    
+    
+@bot.message_handler(commands=['grafico'])
+def send_drawing_bar(message):
+    italian.drawing_bar()
+    bar = open('МАШУЛЯМОЛОДЕЦ.jpg', 'rb')
+    bot.send_photo(message.chat.id, bar)
 
 
 @bot.message_handler(content_types=['text'])
@@ -72,12 +79,6 @@ def ciao_text_message(message):
     else:
         bot.send_message(message.chat.id, 'non so questo comando')
 
-
-@bot.message_handler(commands=['grafico'])
-def send_drawing_bar(message):
-    italian.drawing_bar()
-    bar = open('МАШУЛЯМОЛОДЕЦ.jpg', 'rb')
-    bot.send_photo(message.chat.id, bar)
 
 
 bot.polling(none_stop=True)
