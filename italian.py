@@ -43,7 +43,7 @@ def check_answer(answer, word, language):
         return random.choice(approval)
     else:
         FORGOTTEN_WORDS[right_answer] += 1  
-        return f'Ti sbagli ☹️:(\nla risposta giusta: {right_answer}'
+        return f'Ti sbagli ☹️:(\nLa risposta giusta: {right_answer}'
 
 
 def drawing_bar():
