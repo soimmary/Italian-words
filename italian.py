@@ -1,6 +1,6 @@
 import random
 import matplotlib.pyplot as plt
-import collections #  добавила
+import collections 
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
@@ -42,7 +42,7 @@ def check_answer(answer, word, language):
                     'Certo🥰!', 'Bravo👏🏻!', 'Bravissima🥳!')
         return random.choice(approval)
     else:
-        FORGOTTEN_WORDS[right_answer] += 1  # добавила этот кусок
+        FORGOTTEN_WORDS[right_answer] += 1  
         return f'Ti sbagli ☹️:(\nla risposta giusta: {right_answer}'
 
 
