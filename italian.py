@@ -9,8 +9,7 @@ FORGOTTEN_WORDS = collections.Counter()
 
 
 def create_basis(filename: str = 'italian.txt'):
-    """ создает базу слов из ткстшника
-        принимает название файла
+    """ создает базу слов в Google Sheets
     """
                
     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
