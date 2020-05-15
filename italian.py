@@ -38,8 +38,8 @@ def check_answer(answer, word, language):
     elif language == 'rus🇷🇺 -> ital🇮🇹':
         right_answer = word[0]
     if right_answer == answer:
-        approval = ('GIUSTO!', 'BENE!', 'CORRETTAMENTE!', 'ESSATO!',
-                    'CERTO!', 'BRAVO!', 'BRAVISSIMA!')
+        approval = ('Giusto☺️!', 'Bene🤓!', 'Correttamente🤩!', 'Essato☺️!',
+                    'Certo🥰!', 'Bravo👏🏻!', 'Bravissima🥳!')
         return random.choice(approval)
     else:
         FORGOTTEN_WORDS[right_answer] += 1  # добавила этот кусок
