@@ -33,9 +33,9 @@ def choose_word():
 
 def check_answer(answer, word, language):
     right_answer = ''
-    if language == 'ital -> rus':
+    if language == 'ital🇮🇹 -> rus🇷🇺':
         right_answer = word[1]
-    elif language == 'rus -> ital':
+    elif language == 'rus🇷🇺 -> ital🇮🇹':
         right_answer = word[0]
     if right_answer == answer:
         approval = ('GIUSTO!', 'BENE!', 'CORRETTAMENTE!', 'ESSATO!',
