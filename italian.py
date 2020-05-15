@@ -1,6 +1,8 @@
 import random
 import matplotlib.pyplot as plt
 import collections #  добавила
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 WORDS_DICTIONARY = {}  # *ital_word*: *rus_word*
 FORGOTTEN_WORDS = collections.Counter()
