@@ -18,7 +18,7 @@ def create_basis(filename: str = 'italian.txt'):
 
     sheet = client.open('Italian Words').sheet1
     for row in range(1, sheet.row_count + 1):
-        WORDS_DICTIONARY[sheet.row_values(row)[0] = sheet.row_values(row)[1]]        
+        WORDS_DICTIONARY[sheet.row_values(row)[0]] = [sheet.row_values(row)[1]]        
     
 
 
