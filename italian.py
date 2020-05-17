@@ -50,11 +50,12 @@ def drawing_bar():
     words = list(FORGOTTEN_WORDS.values())
     number = list(FORGOTTEN_WORDS.keys())
 
+    plt.figure(figsize(16, 9))
     plt.bar(number, words, color='pink')
     plt.title('Le parole che dimentichi')
     plt.ylabel('Volte')
     plt.xlabel('Parole')
-    plt.savefig(r'grafico.png', dpi=1000, bbox_inches=0)
+    plt.savefig(r'grafico.png', bbox_inches=0)
 
 
 create_basis()
