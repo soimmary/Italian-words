@@ -69,7 +69,7 @@ def sonostanco_message(message):
 def send_drawing_bar(message):
     italian.drawing_bar()
     bar = open('grafico.png', 'rb')
-    bot.send_document(message.chat.id, bar)
+    bot.send_document(message.chat.id, data=bar)
 
 
 @bot.message_handler(content_types=['text'])
