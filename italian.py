@@ -27,7 +27,9 @@ def create_basis(tema):
         work_sheet = sheet.worksheet('casa')
         
     for row in range(1, work_sheet.row_count + 1):
-        WORDS_DICTIONARY[work_sheet.row_values(row)[0]] = work_sheet.row_values(row)[1]   
+        WORDS_DICTIONARY[work_sheet.row_values(row)[0]] = work_sheet.row_values(row)[1]  
+        print(work_sheet.row_values(row)[0], work_sheet.row_values(row)[1]) 
+
 # NEW ________    
 
 
