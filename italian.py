@@ -19,11 +19,11 @@ def create_basis(tema):
 # NEW ________
 
     if tema == 'il cibo 🍝':
-        sheet = client.open('Italian Words').cibo
-    elif tema == 'la casa 🏡':
-        sheet = client.open('Italian Words').casa
+        sheet = client.open('Italian Words').sheet1
     elif tema == 'i lavori di casa 🧺':
-        sheet = client.open('Italian Words').lavori_di_casa
+        sheet = client.open('Italian Words').sheet2
+    elif tema == 'la casa 🏡':
+        sheet = client.open('Italian Words').sheet3
         
     for row in range(1, sheet.row_count + 1):
         WORDS_DICTIONARY[sheet.row_values(row)[0]] = sheet.row_values(row)[1]   
