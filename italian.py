@@ -40,7 +40,7 @@ def choose_word():
     """
     #word = random.choice(list(WORDS_DICTIONARY.items()))
     #return word
-    for word in list(WORDS_DICTIONARY.items():
+    for word in list(WORDS_DICTIONARY.items()):
         print(word)
 
 
