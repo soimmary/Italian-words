@@ -35,7 +35,27 @@ def ciao_message_register_language(message):
     else:
         bot.send_message(message.chat.id, "L'errore❗️")
         
+        
+# NEW___________
 
+def ciao_message_ask_tema(message):
+    keyboard_tema = telebot.types.ReplyKeyboardMarkup(True, True)
+    keyboard_tema.row('il cibo 🍝', 'la casa 🏡', 'i lavori di casa 🧺')
+    bot.send_message(message.chat.id, 'Scegli il tema', reply_markup=keyboard_tema)
+    bot.register_next_step_handler(message, ciao_message_register_tema)
+
+
+def ciao_message_register_tema(message):
+    possible_answers = ('il cibo 🍝', 'la casa 🏡', 'i lavori di casa 🧺')
+    tema = message.text.strip().lower()
+    if tema in possible_answers:
+        ciao_message_ask(message, tema)
+    else:
+        bot.send_message(message.chat.id, "L'errore❗️")
+
+# NEW___________
+        
+    
 def ciao_message_ask(message, language):
     if message.text.strip().lower() not in ('sono stanca', 'sono stanco'):  # proverka na ustalost'
         user_id = message.chat.id
@@ -48,7 +68,7 @@ def ciao_message_ask(message, language):
         bot.register_next_step_handler(message, ciao_message_check_answer, word, language)
     else:
         sonostanco_message(message)
-
+        
 
 def ciao_message_check_answer(message, word, language):
     answer = message.text.strip().lower()
