@@ -25,8 +25,8 @@ def create_basis(tema):
     elif tema == 'la casa 🏡':
         work_sheet = sheet.worksheet('casa')
         
-    for row in range(1, sheet.row_count + 1):
-        WORDS_DICTIONARY[sheet.row_values(row)[0]] = sheet.row_values(row)[1]   
+    for row in range(1, work_sheet.row_count + 1):
+        WORDS_DICTIONARY[work_sheet.row_values(row)[0]] = work_sheet.row_values(row)[1]   
 # NEW ________    
 
 
