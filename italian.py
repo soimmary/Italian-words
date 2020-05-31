@@ -40,8 +40,7 @@ def choose_word():
     """
     #word = random.choice(list(WORDS_DICTIONARY.items()))
     #return word
-    for word in list(WORDS_DICTIONARY.items()):
-        print(word)
+    print(WORDS_DICTIONARY)
 
 
 def check_answer(answer, word, language):
