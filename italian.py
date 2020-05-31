@@ -18,7 +18,8 @@ def create_basis(filename: str = 'italian.txt'):
 
     sheet = client.open('Italian Words').sheet1
     for row in range(1, sheet.row_count + 1):
-        WORDS_DICTIONARY[sheet.row_values(row)[0]] = sheet.row_values(row)[1]        
+        WORDS_DICTIONARY[sheet.row_values(row)[0]] = sheet.row_values(row)[1]   
+
     
 
 
@@ -42,7 +43,8 @@ def check_answer(answer, word, language):
                     'Certo🥰!', 'Bravo👏🏻!', 'Bravissima🥳!')
         return random.choice(approval)
     else:
-        if right_answer in WORDS_DICTIONARY.keys():
+        # new
+        if right_answer in list(WORDS_DICTIONARY.keys()):
             FORGOTTEN_WORDS[right_answer] += 1 
         else:
             forgotten_word = WORDS_DICTIONARY[right_answer]
