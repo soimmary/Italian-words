@@ -31,7 +31,7 @@ def ciao_message_register_language(message):
     possible_answers = ('ital🇮🇹 -> rus🇷🇺', 'rus🇷🇺 -> ital🇮🇹')
     language = message.text.strip().lower()
     if language in possible_answers:
-        ciao_message_ask(message, language)
+        ciao_message_ask_tema(message)
     else:
         bot.send_message(message.chat.id, "L'errore❗️")
         
@@ -50,6 +50,7 @@ def ciao_message_register_tema(message):
     tema = message.text.strip().lower()
     if tema in possible_answers:
         italian.create_basis(tema)
+        ciao_message_ask(message, language)
     else:
         bot.send_message(message.chat.id, "L'errore❗️")
 
