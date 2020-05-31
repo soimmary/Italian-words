@@ -34,7 +34,7 @@ def ciao_message_register_language(message):
         ciao_message_ask(message, language)
     else:
         bot.send_message(message.chat.id, "L'errore❗️")
-
+        
 
 def ciao_message_ask(message, language):
     if message.text.strip().lower() not in ('sono stanca', 'sono stanco'):  # proverka na ustalost'
