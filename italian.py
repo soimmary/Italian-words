@@ -9,6 +9,7 @@ FORGOTTEN_WORDS = collections.Counter()
 
 
 def create_basis(tema):
+    print(tema)
     """ создает базу слов в Google Sheets
     """
                
