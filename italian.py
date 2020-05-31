@@ -67,4 +67,4 @@ def drawing_bar():
     plt.savefig(r'grafico.png', bbox_inches=0)
 
 
-create_basis()
+create_basis(tema)
