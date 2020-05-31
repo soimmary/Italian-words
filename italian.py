@@ -11,6 +11,7 @@ FORGOTTEN_WORDS = collections.Counter()
 def create_basis(tema):
     """ создает базу слов в Google Sheets
     """
+    global WORDS_DICTIONARY
                
     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
