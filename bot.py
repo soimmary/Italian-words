@@ -20,9 +20,6 @@ def help_message(message):
 
 
 @bot.message_handler(commands=['ciao'])
-
-# NEW___________
-
 def ciao_message_ask_tema(message):
     keyboard_tema = telebot.types.ReplyKeyboardMarkup(True, True)
     keyboard_tema.row('il cibo 🍝', 'la casa 🏡', 'i lavori di casa 🧺')
