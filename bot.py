@@ -49,7 +49,7 @@ def ciao_message_register_tema(message):
     possible_answers = ('il cibo 🍝', 'la casa 🏡', 'i lavori di casa 🧺')
     tema = message.text.strip().lower()
     if tema in possible_answers:
-        ciao_message_ask(message, tema)
+        italian.create_basis(tema)
     else:
         bot.send_message(message.chat.id, "L'errore❗️")
 
