@@ -17,13 +17,13 @@ def create_basis(tema):
     client = gspread.authorize(creds)
     
 # NEW ________
-
+    sheet = client.open('Italian Words')
     if tema == 'il cibo 🍝':
-        sheet = client.open('Italian Words').sheet1
+        work_sheet = sheet.worksheet('cibo')
     elif tema == 'i lavori di casa 🧺':
-        sheet = client.open('Italian Words').sheet2
+        work_sheet = sheet.worksheet('lavori_di_casa')
     elif tema == 'la casa 🏡':
-        sheet = client.open('Italian Words').sheet3
+        work_sheet = sheet.worksheet('casa')
         
     for row in range(1, sheet.row_count + 1):
         WORDS_DICTIONARY[sheet.row_values(row)[0]] = sheet.row_values(row)[1]   
