@@ -8,19 +8,26 @@ WORDS_DICTIONARY = {}  # *ital_word*: *rus_word*
 FORGOTTEN_WORDS = collections.Counter()
 
 
-def create_basis():
+def create_basis(tema):
     """ создает базу слов в Google Sheets
     """
                
     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
     client = gspread.authorize(creds)
+    
+# NEW ________
 
-    sheet = client.open('Italian Words').sheet1
+    if tema == 'il cibo 🍝':
+        sheet = client.open('Italian Words').cibo
+    elif tema == 'la casa 🏡':
+        sheet = client.open('Italian Words').casa
+    elif tema == 'i lavori di casa 🧺':
+        sheet = client.open('Italian Words').lavori_di_casa
+        
     for row in range(1, sheet.row_count + 1):
         WORDS_DICTIONARY[sheet.row_values(row)[0]] = sheet.row_values(row)[1]   
-
-    
+# NEW ________    
 
 
 def choose_word():
