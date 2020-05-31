@@ -8,7 +8,7 @@ WORDS_DICTIONARY = {}  # *ital_word*: *rus_word*
 FORGOTTEN_WORDS = collections.Counter()
 
 
-def create_basis(filename: str = 'italian.txt'):
+def create_basis():
     """ создает базу слов в Google Sheets
     """
                
