@@ -42,7 +42,11 @@ def check_answer(answer, word, language):
                     'Certo🥰!', 'Bravo👏🏻!', 'Bravissima🥳!')
         return random.choice(approval)
     else:
-        FORGOTTEN_WORDS[right_answer] += 1  
+        if right_answer in WORDS_DICTIONARY.keys():
+            FORGOTTEN_WORDS[right_answer] += 1 
+        else:
+            forgotten_word = WORDS_DICTIONARY[right_answer]
+            FORGOTTEN_WORDS[forgotten_word] += 1
         return f'Ti sbagli ☹️:(\nLa risposta giusta: {right_answer}'
 
 
