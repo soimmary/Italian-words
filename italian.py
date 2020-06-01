@@ -4,15 +4,14 @@ import collections
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-#WORDS_DICTIONARY = {}  # *ital_word*: *rus_word*
+WORDS_DICTIONARY = {}  # *ital_word*: *rus_word*
 FORGOTTEN_WORDS = collections.Counter()
 
 
 def create_basis(tema):
     """ создает базу слов в Google Sheets
     """
-    #global WORDS_DICTIONARY
-    WORDS_DICTIONARY = {}           
+    global WORDS_DICTIONARY         
     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
     client = gspread.authorize(creds)
@@ -33,11 +32,12 @@ def create_basis(tema):
 # NEW ________    
 
 
-def choose_word(WORDS_DICTIONARY):
+def choose_word():
     """ спрашивает случайное слово из списка всех слов
         принимает ответ пользователя answer
         проверяет ответ пользователя
     """
+    global WORDS_DICTIONARY
     word = random.choice(list(WORDS_DICTIONARY.items()))
     return word
 
