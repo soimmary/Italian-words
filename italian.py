@@ -37,9 +37,8 @@ def choose_word():
         принимает ответ пользователя answer
         проверяет ответ пользователя
     """
-    #word = random.choice(list(WORDS_DICTIONARY.items()))
-    #return word
-    print(WORDS_DICTIONARY)
+    word = random.choice(list(WORDS_DICTIONARY.items()))
+    return word
 
 
 def check_answer(answer, word, language):
