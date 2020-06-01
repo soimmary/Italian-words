@@ -93,7 +93,7 @@ def send_drawing_bar(message):
 @bot.message_handler(content_types=['text'])
 def ciao_text_message(message):
     if str(message.text).strip().lower() == 'ciao':
-        ciao_message_ask_language(message)
+        ciao_message_ask_language(message, tema)
     else:
         bot.send_message(message.chat.id, 'Non so questo comando ☹️')
 
