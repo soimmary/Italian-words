@@ -37,8 +37,7 @@ def choose_word():
         принимает ответ пользователя answer
         проверяет ответ пользователя
     """
-    global WORDS_DICTIONARY
-    word = random.choice(list(WORDS_DICTIONARY.items()))
+    word = random.choice(list(create_basis().items()))
     return word
 
 
