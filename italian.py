@@ -4,7 +4,7 @@ import collections
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-WORDS_DICTIONARY = {}  # *ital_word*: *rus_word*
+#WORDS_DICTIONARY = {}  # *ital_word*: *rus_word*
 FORGOTTEN_WORDS = collections.Counter()
 
 
@@ -28,17 +28,17 @@ def create_basis(tema):
             = work_sheet.row_values(row)[1]
 
     WORDS_DICTIONARY = large_dictionary[tema]
-    return WORDS_DICTIONARY
+    return random.choice(list(WORDS_DICTIONARY.items()))
 # NEW ________    
 
 
-def choose_word():
+#def choose_word():
     """ спрашивает случайное слово из списка всех слов
         принимает ответ пользователя answer
         проверяет ответ пользователя
     """
-    word = random.choice(list(create_basis().items()))
-    return word
+    #word = random.choice(list(WORDS_DICTIONARY.items()))
+    #return word
 
 
 def check_answer(answer, word, language):
