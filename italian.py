@@ -19,17 +19,16 @@ def create_basis(tema):
     
 # NEW ________
     sheet = client.open('Italian Words')
-    if tema == 'il cibo 🍝':
-        work_sheet = sheet.worksheet('cibo')
-    elif tema == 'i lavori di casa 🧺':
-        work_sheet = sheet.worksheet('lavori_di_casa')
-    elif tema == 'la casa 🏡':
-        work_sheet = sheet.worksheet('casa')
-        
+    work_sheet = sheet.worksheet('parole')
+    large_dictionary = {}
+    
     for row in range(1, work_sheet.row_count + 1):
-        WORDS_DICTIONARY[work_sheet.row_values(row)[0]] = work_sheet.row_values(row)[1]  
-        print(work_sheet.row_values(row)[0], work_sheet.row_values(row)[1]) 
+        large_dictionary[work_sheet.row_values(row)[2]] = {}
+    for row in range(1, work_sheet.row_count + 1):
+        large_dictionary[work_sheet.row_values(row)[2]][work_sheet.row_values(row)[0]] \
+            = work_sheet.row_values(row)[1]
 
+    WORDS_DICTIONARY = large_dictionary[tema]
 # NEW ________    
 
 
