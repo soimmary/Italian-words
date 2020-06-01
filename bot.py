@@ -32,29 +32,29 @@ def ciao_message_register_tema(message):
     tema = message.text.strip().lower()
     if tema in possible_answers:
         #italian.create_basis(tema)
-        bot.register_next_step_handler(message, ciao_message_ask_language)
+        bot.register_next_step_handler(message, ciao_message_ask_language(tema))
     else:
         bot.send_message(message.chat.id, "L'errore❗️")
 
 # NEW___________
 
-def ciao_message_ask_language(message):
+def ciao_message_ask_language(message, tema):
     keyboard_modello = telebot.types.ReplyKeyboardMarkup(True, True)
     keyboard_modello.row('ital🇮🇹 -> rus🇷🇺', 'rus🇷🇺 -> ital🇮🇹')
     bot.send_message(message.chat.id, 'Scegli il modello', reply_markup=keyboard_modello)
-    bot.register_next_step_handler(message, ciao_message_register_language)
+    bot.register_next_step_handler(message, ciao_message_register_language(tema))
 
     
-def ciao_message_register_language(message):
+def ciao_message_register_language(message, tema):
     possible_answers = ('ital🇮🇹 -> rus🇷🇺', 'rus🇷🇺 -> ital🇮🇹')
     language = message.text.strip().lower()
     if language in possible_answers:
-        ciao_message_ask(message, language)
+        ciao_message_ask(message, language, tema)
     else:
         bot.send_message(message.chat.id, "L'errore❗️")
                       
     
-def ciao_message_ask(message, language):
+def ciao_message_ask(message, language, tema):
     if message.text.strip().lower() not in ('sono stanca', 'sono stanco'):  # proverka na ustalost'
         user_id = message.chat.id
         word = italian.create_basis(tema)
