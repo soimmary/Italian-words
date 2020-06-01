@@ -31,7 +31,7 @@ def ciao_message_register_tema(message):
     possible_answers = ('il cibo 🍝', 'la casa 🏡', 'i lavori di casa 🧺')
     tema = message.text.strip().lower()
     if tema in possible_answers:
-        italian.create_basis(tema)
+        #italian.create_basis(tema)
         bot.register_next_step_handler(message, ciao_message_ask_language)
     else:
         bot.send_message(message.chat.id, "L'errore❗️")
@@ -57,7 +57,7 @@ def ciao_message_register_language(message):
 def ciao_message_ask(message, language):
     if message.text.strip().lower() not in ('sono stanca', 'sono stanco'):  # proverka na ustalost'
         user_id = message.chat.id
-        word = italian.choose_word()
+        word = italian.create_basis(tema)
         if language == 'ital🇮🇹 -> rus🇷🇺':
             bot.send_message(message.chat.id, word[0])
         elif language == 'rus🇷🇺 -> ital🇮🇹':
