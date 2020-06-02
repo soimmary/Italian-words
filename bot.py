@@ -38,7 +38,7 @@ def ciao_message_register_theme(message):
     theme = message.text.strip().lower()
     if theme in possible_answers:
         italian.USERS[message.chat.id]['theme'] = theme
-        bot.register_next_step_handler(message, ciao_message_ask_language)
+        ciao_message_ask_language(message)
     else:
         bot.send_message(message.chat.id, "L'errore❗️")
 
@@ -107,4 +107,3 @@ def ciao_text_message(message):
 
 
 bot.polling(none_stop=True)
- 
