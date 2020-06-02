@@ -28,7 +28,7 @@ def ciao_message_ask_theme(message):
     if message.chat.id not in italian.USERS:
         italian.add_new_user(message.chat.id)
     keyboard_theme = telebot.types.ReplyKeyboardMarkup(True, True)
-    keyboard_theme.row('il cibo 🍝', 'la casa 🏡', 'i lavori di casa 🧺')
+    keyboard_theme.row(*italian.WORDS_DICTIONARY.keys())
     bot.send_message(message.chat.id, 'Scegli il tema', reply_markup=keyboard_theme)
     bot.register_next_step_handler(message, ciao_message_register_theme)
 
