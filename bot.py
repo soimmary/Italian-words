@@ -1,4 +1,5 @@
 import telebot
+from telebot.types import KeyboardButton
 import italian
 import os
 
@@ -28,13 +29,20 @@ def ciao_message_ask_theme(message):
     if message.chat.id not in italian.USERS:
         italian.add_new_user(message.chat.id)
     keyboard_theme = telebot.types.ReplyKeyboardMarkup(True, True)
-    keyboard_theme.row(*italian.WORDS_DICTIONARY.keys())
+    themes = italian.WORDS_DICTIONARY.keys()
+    for i in range(len(themes)):
+        left = KeyboardButton(themes[i])
+        try:
+            right = KeyboardButton(themes[i])
+            keyboard_theme.add(left, right)
+        except IndexError:
+            keyboard_theme.add(left)
     bot.send_message(message.chat.id, 'Scegli il tema', reply_markup=keyboard_theme)
     bot.register_next_step_handler(message, ciao_message_register_theme)
 
 
 def ciao_message_register_theme(message):
-    possible_answers = ('il cibo 🍝', 'la casa 🏡', 'i lavori di casa 🧺')
+    possible_answers = tuple(italian.WORDS_DICTIONARY.keys())
     theme = message.text.strip().lower()
     if theme in possible_answers:
         italian.USERS[message.chat.id]['theme'] = theme
