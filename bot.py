@@ -101,10 +101,9 @@ def update_message(message):
 @bot.message_handler(content_types=['text'])
 def ciao_text_message(message):
     if str(message.text).strip().lower() == 'ciao':
-        ciao_message_ask_language(message)
+        ciao_message_ask_theme(message)
     else:
         bot.send_message(message.chat.id, 'Non so questo comando ☹️')
 
 
 bot.polling(none_stop=True)
- 
