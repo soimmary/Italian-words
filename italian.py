@@ -67,7 +67,7 @@ def check_answer(user_id, answer):
         return random.choice(approval)
     else:
         # какие итальянские слова часто забываешь
-        USERS[user_id][USERS[user_id]['word_pair'][0]] += 1
+        USERS[user_id]['forgotten_words'][USERS[user_id]['word_pair'][0]] += 1
         return f'Ti sbagli ☹️:(\nLa risposta giusta: {right_answer}'
 
 
