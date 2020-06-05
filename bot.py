@@ -28,7 +28,7 @@ def help_message(message):
 def ciao_message_ask_theme(message):
     if message.chat.id not in italian.USERS:
         italian.add_new_user(message.chat.id)
-    keyboard_theme = telebot.types.ReplyKeyboardMarkup(True, True)
+    keyboard_theme.row(*italian.WORDS_DICTIONARY.keys())
     themes = italian.WORDS_DICTIONARY.keys()
     for i in range(len(themes)):
         left = KeyboardButton(themes[i])
