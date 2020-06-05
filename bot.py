@@ -29,7 +29,7 @@ def ciao_message_ask_theme(message):
     if message.chat.id not in italian.USERS:
         italian.add_new_user(message.chat.id)
     keyboard_theme = telebot.types.ReplyKeyboardMarkup(True, True)
-    themes = italian.WORDS_DICTIONARY.keys()
+    themes = tuple(italian.WORDS_DICTIONARY.keys())
     for i in range(len(themes)):
         left = KeyboardButton(themes[i])
         try:
@@ -95,6 +95,8 @@ def sonostanca_message(message):
 
 @bot.message_handler(commands=['grafico'])
 def send_drawing_bar(message):
+    if message.chat.id not in italian.USERS:
+        italian.add_new_user(message.chat.id)
     italian.drawing_bar(message.chat.id)
     bar = open('grafico.png', 'rb')
     bot.send_photo(message.chat.id, photo=bar)
@@ -115,4 +117,3 @@ def ciao_text_message(message):
 
 
 bot.polling(none_stop=True)
- 
