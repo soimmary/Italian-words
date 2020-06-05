@@ -81,3 +81,4 @@ def drawing_bar(user_id):
     plt.ylabel('Volte')
     plt.xlabel('Parole')
     plt.savefig(r'grafico.png', bbox_inches=0)
+ 
