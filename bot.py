@@ -30,13 +30,14 @@ def ciao_message_ask_theme(message):
         italian.add_new_user(message.chat.id)
     keyboard_theme = telebot.types.ReplyKeyboardMarkup(True, True)
     themes = tuple(italian.WORDS_DICTIONARY.keys())
-    for i in range(len(themes)):
+    for i in range(0, len(themes), 2):
         left = KeyboardButton(themes[i])
         try:
-            right = KeyboardButton(themes[i])
+            right = KeyboardButton(themes[i+1])
             keyboard_theme.add(left, right)
         except IndexError:
             keyboard_theme.add(left)
+            break
     bot.send_message(message.chat.id, 'Scegli il tema', reply_markup=keyboard_theme)
     bot.register_next_step_handler(message, ciao_message_register_theme)
 
