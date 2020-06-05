@@ -1,120 +1,70 @@
-import telebot
-from telebot.types import KeyboardButton
-import italian
-import os
-
-# подключение к боту
-TOKEN = os.getenv('TOKEN')
-bot = telebot.TeleBot(TOKEN)
-# создание базы слов
-italian.create_basis()
-
-
-@bot.message_handler(commands=['start'])
-def start_message(message):
-    if message.chat.id not in italian.USERS:
-        italian.add_new_user(message.chat.id)
-    bot.send_message(message.chat.id, 'Ciao🤩!')
-
-
-@bot.message_handler(commands=['help'])
-def help_message(message):
-    bot.send_message(message.chat.id, '/ciao – damandare la parola\n'
-                                      'sono stanca o sono stanco – finire di praticare\n'
-                                      '/grafico - dimostrare le parole in cui fai gli sbagli spesso')
-
-
-@bot.message_handler(commands=['ciao'])
-def ciao_message_ask_theme(message):
-    if message.chat.id not in italian.USERS:
-        italian.add_new_user(message.chat.id)
-    keyboard_theme = telebot.types.ReplyKeyboardMarkup(True, True)
-    themes = tuple(italian.WORDS_DICTIONARY.keys())
-    for i in range(0, len(themes), 2):
-        left = KeyboardButton(themes[i])
-        try:
-            right = KeyboardButton(themes[i+1])
-            keyboard_theme.add(left, right)
-        except IndexError:
-            keyboard_theme.add(left)
-            break
-    bot.send_message(message.chat.id, 'Scegli il tema', reply_markup=keyboard_theme)
-    bot.register_next_step_handler(message, ciao_message_register_theme)
-
-
-def ciao_message_register_theme(message):
-    possible_answers = tuple(italian.WORDS_DICTIONARY.keys())
-    theme = message.text.strip().lower()
-    if theme in possible_answers:
-        italian.USERS[message.chat.id]['theme'] = theme
-        ciao_message_ask_language(message)
-    else:
-        bot.send_message(message.chat.id, "L'errore❗️")
-
-
-def ciao_message_ask_language(message):
-    keyboard_modello = telebot.types.ReplyKeyboardMarkup(True, True)
-    keyboard_modello.row('ital🇮🇹 -> rus🇷🇺', 'rus🇷🇺 -> ital🇮🇹')
-    bot.send_message(message.chat.id, 'Scegli il modello', reply_markup=keyboard_modello)
-    bot.register_next_step_handler(message, ciao_message_register_language)
-
-
-def ciao_message_register_language(message):
-    possible_answers = ('ital🇮🇹 -> rus🇷🇺', 'rus🇷🇺 -> ital🇮🇹')
-    language = message.text.strip().lower()
-    if language in possible_answers:
-        italian.USERS[message.chat.id]['language'] = language
-        ciao_message_ask(message)
-    else:
-        bot.send_message(message.chat.id, "L'errore❗️")
+import random
+import matplotlib.pyplot as plt
+import collections
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+WORDS_DICTIONARY = {}  # *ital_word*: *rus_word*
+USERS = {}
+def create_basis():
+    """ создает базу слов из Google Sheets
+    """
+    global WORDS_DICTIONARY
+    scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+    creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+    client = gspread.authorize(creds)
+    # NEW ________
+    sheet = client.open('Italian Words')
+    work_sheet = sheet.worksheet('parole')
+    large_dictionary = {}
+    row_max = work_sheet.row_count + 1
+    for row in range(1, row_max):
+        theme = work_sheet.row_values(row)[2]
+        ital_word = work_sheet.row_values(row)[0]
+        rus_word = work_sheet.row_values(row)[1]
+        if theme not in large_dictionary:
+            large_dictionary[theme] = {}
+        large_dictionary[theme][ital_word] = rus_word
+    WORDS_DICTIONARY = large_dictionary
+def add_new_user(user_id):
+    global USERS
+    user_info = {'language': 'ital🇮🇹 -> rus🇷🇺',
+                 'theme': 'il cibo 🍝',
+                 'word_pair': None,
+                 'forgotten_words': collections.Counter()}
+    USERS[user_id] = user_info
+def choose_word(user_id):
+    """ спрашивает случайное слово из списка всех слов
+    """
+    theme = USERS[user_id]['theme']
+    language = USERS[user_id]['language']
+    USERS[user_id]['word_pair'] = random.choice(list(WORDS_DICTIONARY[theme].items()))
+    if language == 'ital🇮🇹 -> rus🇷🇺':
+        return USERS[user_id]['word_pair'][0]
+    elif language == 'rus🇷🇺 -> ital🇮🇹':
+        return USERS[user_id]['word_pair'][1]
+def check_answer(user_id, answer):
+    right_answer = ''
+    language = USERS[user_id]['language']
+    if language == 'ital🇮🇹 -> rus🇷🇺':
+        right_answer = USERS[user_id]['word_pair'][1]
+    elif language == 'rus🇷🇺 -> ital🇮🇹':
+        right_answer = USERS[user_id]['word_pair'][0]
+    if right_answer == answer:
+        approval = ('Giusto☺️!', 'Bene🤓!', 'Correttamente🤩!', 'Essato☺️!',
+                    'Certo🥰!', 'Bravo👏🏻!', 'Bravissima🥳!')
+         return random.choice(approval)
+     else:
+         # какие итальянские слова часто забываешь
+         USERS[user_id]['forgotten_words'][USERS[user_id]['word_pair'][0]] += 1
+         return f'Ti sbagli ☹️:(\nLa risposta giusta: {right_answer}'
 
 
-def ciao_message_ask(message):
-    answer = message.text.strip().lower()
-    if answer not in ('sono stanca', 'sono stanco'):  # proverka na ustalost'
-        word = italian.choose_word(message.chat.id)
-        bot.send_message(message.chat.id, word)
-        bot.send_message(message.chat.id, 'Aspetto la tua risposta ⏰')
-        bot.register_next_step_handler(message, ciao_message_check_answer)
-    else:
-        sonostanca_message(message)
-
-
-def ciao_message_check_answer(message):
-    answer = message.text.strip().lower()
-    if answer not in ('sono stanca', 'sono stanco'):
-        my_decision = italian.check_answer(message.chat.id, answer)
-        bot.send_message(message.chat.id, my_decision)
-        ciao_message_ask(message)
-    else:
-        sonostanca_message(message)
-
-
-def sonostanca_message(message):
-    bot.send_message(message.chat.id, 'Hai lavorato bene 🤗!')
-
-
-@bot.message_handler(commands=['grafico'])
-def send_drawing_bar(message):
-    if message.chat.id not in italian.USERS:
-        italian.add_new_user(message.chat.id)
-    italian.drawing_bar(message.chat.id)
-    bar = open('grafico.png', 'rb')
-    bot.send_photo(message.chat.id, photo=bar)
-
-
-@bot.message_handler(commands=['update'])
-def update_message(message):
-    italian.create_basis()
-    bot.send_message(message.chat.id, 'obnovleno')
-
-
-@bot.message_handler(content_types=['text'])
-def ciao_text_message(message):
-    if str(message.text).strip().lower() == 'ciao':
-        ciao_message_ask_theme(message)
-    else:
-        bot.send_message(message.chat.id, 'Non so questo comando ☹️')
-
-
-bot.polling(none_stop=True)
+def drawing_bar(user_id):
+    words = list(USERS[user_id]['forgotten_words'].values())
+    number = list(USERS[user_id]['forgotten_words'].keys())
+    plt.figure(figsize=(16, 9))
+    plt.bar(number, words, color='pink')
+    plt.title('Le parole che dimentichi')
+    plt.ylabel('Volte')
+    plt.xlabel('Parole')
+    plt.savefig(r'grafico.png', bbox_inches=0)
