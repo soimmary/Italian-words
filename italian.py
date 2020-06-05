@@ -3,8 +3,12 @@ import matplotlib.pyplot as plt
 import collections
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+
+
 WORDS_DICTIONARY = {}  # *ital_word*: *rus_word*
 USERS = {}
+
+
 def create_basis():
     """ создает базу слов из Google Sheets
     """
@@ -25,6 +29,8 @@ def create_basis():
             large_dictionary[theme] = {}
         large_dictionary[theme][ital_word] = rus_word
     WORDS_DICTIONARY = large_dictionary
+
+    
 def add_new_user(user_id):
     global USERS
     user_info = {'language': 'ital🇮🇹 -> rus🇷🇺',
@@ -32,6 +38,8 @@ def add_new_user(user_id):
                  'word_pair': None,
                  'forgotten_words': collections.Counter()}
     USERS[user_id] = user_info
+
+    
 def choose_word(user_id):
     """ спрашивает случайное слово из списка всех слов
     """
@@ -42,6 +50,8 @@ def choose_word(user_id):
         return USERS[user_id]['word_pair'][0]
     elif language == 'rus🇷🇺 -> ital🇮🇹':
         return USERS[user_id]['word_pair'][1]
+    
+    
 def check_answer(user_id, answer):
     right_answer = ''
     language = USERS[user_id]['language']
