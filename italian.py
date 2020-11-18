@@ -23,6 +23,7 @@ def create_basis():
 
     row_max = work_sheet.row_count + 1
     for row in range(1, row_max):
+        row_values = work_sheet.row_values(row)
         theme = work_sheet.row_values(row)[2]
         ital_word = work_sheet.row_values(row)[0]
         rus_word = work_sheet.row_values(row)[1]
